@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "kgui_example_properties",
+  "version": "${version}",
+  "name": "KGUI Properties Example",
+  "description": "Cuddly Minecraft GUI library Properties Example.",
+  "authors": [
+    "Kneelawk"
+  ],
+  "contact": {
+    "homepage": "https://github.com/Kneelawk/KGUI",
+    "issues": "https://github.com/Kneelawk/KGUI/issues",
+    "sources": "https://github.com/Kneelawk/KGUI"
+  },
+  "license": "MIT",
+  "icon": "assets/kgui_example_properties/icon.png",
+  "environment": "*",
+  "entrypoints": { },
+  "mixins": [ ],
+  "depends": {
+    "fabricloader": ">=0.15.0",
+    "fabric-api": "*",
+    "minecraft": ">=1.21- <1.22-",
+    "java": ">=17"
+  },
+  "custom": {
+    "modmenu": {
+      "badges": [ "library" ]
+    }
+  }
+}

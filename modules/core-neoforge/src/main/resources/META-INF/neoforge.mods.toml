@@ -1,0 +1,18 @@
+modLoader = "javafml"
+loaderVersion = "[1,)"
+license = "MIT"
+
+[[mods]]
+modId = "kgui"
+version = "${version}"
+displayName = "KGUI"
+authors = "Kneelawk"
+description = "Cuddly Minecraft GUI library."
+logoFile = "assets/kgui/icon.png"
+
+[[dependencies.kgui]]
+modId = "neoforge"
+type = "REQUIRED"
+versionRange = "[20.4.148-beta,)"
+ordering = "NONE"
+side = "BOTH"

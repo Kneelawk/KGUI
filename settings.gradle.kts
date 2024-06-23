@@ -79,3 +79,11 @@ val fabric = true
 val neoforge = true
 
 module(true, "engine")
+module(xplat, "core-xplat")
+module(mojmap, "core-xplat-mojmap")
+module(fabric, "core-fabric")
+module(neoforge, "core-neoforge")
+
+example(xplat, "properties-xplat")
+example(fabric, "properties-fabric")
+example(neoforge, "properties-neoforge")

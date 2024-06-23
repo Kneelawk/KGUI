@@ -1,0 +1,18 @@
+modLoader = "javafml"
+loaderVersion = "[1,)"
+license = "MIT"
+
+[[mods]]
+modId = "kgui_example_properties"
+version = "${version}"
+displayName = "KGUI Properties Example"
+authors = "Kneelawk"
+description = "Cuddly Minecraft GUI library Properties Example."
+logoFile = "assets/kgui_example_properties/icon.png"
+
+[[dependencies.kgui_example_properties]]
+modId = "neoforge"
+type = "REQUIRED"
+versionRange = "[20.4.148-beta,)"
+ordering = "NONE"
+side = "BOTH"

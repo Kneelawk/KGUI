@@ -4,6 +4,8 @@ plugins {
     id("com.kneelawk.kpublish")
 }
 
+base.libsDirectory.set(project.rootProject.layout.buildDirectory.dir("libs"))
+
 repositories {
     mavenCentral()
     maven("https://maven.kneelawk.com/releases/") { name = "Kneelawk" } // houses vendored kdl4j
@@ -22,8 +24,14 @@ java {
     withJavadocJar()
 }
 
-tasks.named("javadoc").configure {
+tasks.named("javadoc", Javadoc::class).configure {
+    (options as? StandardJavadocDocletOptions)?.apply {
+        addBooleanOption("Werror", true)
+    }
 
+    val javadoc_package_name: String by project
+    exclude("$javadoc_package_name/impl")
+    exclude("$javadoc_package_name/**/impl")
 }
 
 kpublish {
