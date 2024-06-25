@@ -6,13 +6,17 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import org.jetbrains.annotations.Nullable;
+
 /**
  * A simple property that depends on other properties.
  *
  * @param <T> the value this property contains.
  */
 public class SimpleDependentProp<T> implements Prop<T> {
-    private T value;
+    private boolean initialized = false;
+    private @Nullable T value;
+    private final Supplier<T> valueSupplier;
     private final Runnable updater;
     private final ListenerSet<T> listeners = new ListenerSet<>();
 
@@ -24,10 +28,11 @@ public class SimpleDependentProp<T> implements Prop<T> {
      * @param <S>        the type the dependency provides.
      */
     public <S> SimpleDependentProp(Prop<S> dependency, Function<S, T> converter) {
-        value = converter.apply(dependency.get());
+        valueSupplier = () -> converter.apply(dependency.get());
 
         Consumer<S> listener = s -> {
             final T oldValue = value;
+            initialized = true;
             value = converter.apply(s);
 
             if (!Objects.equals(oldValue, value)) {
@@ -47,9 +52,11 @@ public class SimpleDependentProp<T> implements Prop<T> {
      *                      references to all dependencies.
      */
     public SimpleDependentProp(List<Object> dependencies, Supplier<T> valueSupplier) {
-        value = valueSupplier.get();
+        this.valueSupplier = valueSupplier;
+
         updater = () -> {
             final T oldValue = value;
+            initialized = true;
             value = valueSupplier.get();
 
             if (!Objects.equals(oldValue, value)) {
@@ -64,6 +71,7 @@ public class SimpleDependentProp<T> implements Prop<T> {
 
     @Override
     public T get() {
+        if (!initialized) value = valueSupplier.get();
         return value;
     }
 
