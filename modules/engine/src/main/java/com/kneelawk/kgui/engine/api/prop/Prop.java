@@ -1,5 +1,6 @@
 package com.kneelawk.kgui.engine.api.prop;
 
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -23,4 +24,15 @@ public interface Prop<T> extends Supplier<T>, Listenable<T> {
      * For properties that do not depend on other properties, this does nothing.
      */
     default void update() {}
+
+    /**
+     * Creates a derivative property that depends on this property.
+     *
+     * @param mapFunction the function to map from this property's value to the resulting property value.
+     * @param <U>         the type stored in the mapped property.
+     * @return the mapped property.
+     */
+    default <U> Prop<U> map(Function<T, U> mapFunction) {
+        return new SimpleDependentProp<>(this, mapFunction);
+    }
 }

@@ -22,14 +22,14 @@ public class SimpleSocket<T> implements Socket<T> {
     }
 
     @Override
-    public T getValue() {
-        return prop.get();
+    public void set(T value) {
+        // event is propagated through the property
+        if (prop instanceof WritableProp<T> writableProp) writableProp.set(value);
     }
 
     @Override
-    public void setValue(T value) {
-        // event is propagated through the property
-        if (prop instanceof WritableProp<T> writableProp) writableProp.set(value);
+    public T get() {
+        return prop.get();
     }
 
     @Override
