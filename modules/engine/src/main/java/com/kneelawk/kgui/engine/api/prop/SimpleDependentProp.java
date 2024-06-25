@@ -11,7 +11,7 @@ import java.util.function.Supplier;
  *
  * @param <T> the value this property contains.
  */
-public class SimpleDependentProp<T> implements ReadOnlyProp<T> {
+public class SimpleDependentProp<T> implements Prop<T> {
     private T value;
     private final Runnable updater;
     private final ListenerSet<T> listeners = new ListenerSet<>();
@@ -23,7 +23,7 @@ public class SimpleDependentProp<T> implements ReadOnlyProp<T> {
      * @param converter  the dependency converter.
      * @param <S>        the type the dependency provides.
      */
-    public <S> SimpleDependentProp(ReadOnlyProp<S> dependency, Function<S, T> converter) {
+    public <S> SimpleDependentProp(Prop<S> dependency, Function<S, T> converter) {
         value = converter.apply(dependency.get());
 
         Consumer<S> listener = s -> {
@@ -58,7 +58,7 @@ public class SimpleDependentProp<T> implements ReadOnlyProp<T> {
         };
 
         for (Object dep : dependencies) {
-            if (dep instanceof ReadOnlyProp<?> prop) prop.addWeakListener(o -> updater.run());
+            if (dep instanceof Listenable<?> prop) prop.addWeakListener(o -> updater.run());
         }
     }
 

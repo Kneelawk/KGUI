@@ -3,11 +3,11 @@ package com.kneelawk.kgui.engine.api.prop;
 import java.util.function.Consumer;
 
 /**
- * A write only property that can be written to directly but not have its value read.
+ * A property holds mutable data that optionally depends on other data.
  *
- * @param <T> the type this property accepts.
+ * @param <T> the type of data this property holds.
  */
-public interface WriteOnlyProp<T> extends Consumer<T> {
+public interface WritableProp<T> extends Prop<T>, Consumer<T> {
     /**
      * Sets the value of this property.
      *

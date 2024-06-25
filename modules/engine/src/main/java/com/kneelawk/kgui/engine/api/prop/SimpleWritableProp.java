@@ -8,16 +8,16 @@ import java.util.function.Consumer;
  *
  * @param <T> the type of value.
  */
-public class SimpleProp<T> implements Prop<T> {
+public class SimpleWritableProp<T> implements WritableProp<T> {
     private T value;
     private final ListenerSet<T> listeners = new ListenerSet<>();
 
     /**
-     * Creates a new {@link SimpleProp} with the given initial value.
+     * Creates a new {@link SimpleWritableProp} with the given initial value.
      *
      * @param value this property's initial value.
      */
-    public SimpleProp(T value) {
+    public SimpleWritableProp(T value) {
         this.value = value;
     }
 
