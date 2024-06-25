@@ -7,7 +7,7 @@ import java.util.function.Supplier;
  * A read only property contains data that cannot be written to directly. This could be because it is derived from
  * another property.
  *
- * @param <T> the type this property contains.
+ * @param <T> the type this property contains. Note: this type may be nullable.
  */
 public interface Prop<T> extends Supplier<T>, Listenable<T> {
     /**
@@ -33,6 +33,17 @@ public interface Prop<T> extends Supplier<T>, Listenable<T> {
      * @return the mapped property.
      */
     default <U> Prop<U> map(Function<T, U> mapFunction) {
-        return new SimpleDependentProp<>(this, mapFunction);
+        return new MapProp<>(this, mapFunction);
+    }
+
+    /**
+     * Creates a derivative property that uses a property gotten from the value of this property.
+     *
+     * @param flatMapFunction the function to map from this property's value to the resulting property.
+     * @param <U>             the type stored in the mapped property.
+     * @return the flat-mapped property.
+     */
+    default <U> Prop<U> flatMap(Function<T, Prop<U>> flatMapFunction) {
+        return new FlatMapProp<>(this, flatMapFunction);
     }
 }

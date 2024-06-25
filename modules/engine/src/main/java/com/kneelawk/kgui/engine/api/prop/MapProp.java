@@ -13,7 +13,7 @@ import org.jetbrains.annotations.Nullable;
  *
  * @param <T> the value this property contains.
  */
-public class SimpleDependentProp<T> implements Prop<T> {
+public class MapProp<T> implements Prop<T> {
     private boolean initialized = false;
     private @Nullable T value;
     private final Supplier<T> valueSupplier;
@@ -22,13 +22,16 @@ public class SimpleDependentProp<T> implements Prop<T> {
     private final Supplier<String> toStringSupplier;
 
     /**
-     * Creates a new {@link SimpleDependentProp} with a single dependency.
+     * Creates a new {@link MapProp} with a single dependency.
      *
      * @param dependency the single dependency.
      * @param converter  the dependency converter.
      * @param <S>        the type the dependency provides.
      */
-    public <S> SimpleDependentProp(Prop<S> dependency, Function<S, T> converter) {
+    public <S> MapProp(Prop<S> dependency, Function<S, T> converter) {
+        Objects.requireNonNull(dependency, "dependency cannot be null");
+        Objects.requireNonNull(converter, "converter cannot be null");
+
         valueSupplier = () -> converter.apply(dependency.get());
 
         Consumer<S> listener = s -> {
@@ -48,13 +51,16 @@ public class SimpleDependentProp<T> implements Prop<T> {
     }
 
     /**
-     * Creates a new {@link SimpleDependentProp} with multiple dependencies.
+     * Creates a new {@link MapProp} with multiple dependencies.
      *
      * @param dependencies  the list of dependencies.
      * @param valueSupplier the function that uses the dependencies to get the new value. Note: this should hold strong
      *                      references to all dependencies.
      */
-    public SimpleDependentProp(List<Object> dependencies, Supplier<T> valueSupplier) {
+    public MapProp(List<Object> dependencies, Supplier<T> valueSupplier) {
+        Objects.requireNonNull(dependencies, "dependencies cannot be null");
+        Objects.requireNonNull(valueSupplier, "valueSupplier cannot be null");
+
         this.valueSupplier = valueSupplier;
 
         updater = () -> {
@@ -103,6 +109,6 @@ public class SimpleDependentProp<T> implements Prop<T> {
 
     @Override
     public String toString() {
-        return "SimpleDependentProp{" + toStringSupplier.get() + "}";
+        return "MapProp{" + toStringSupplier.get() + "}";
     }
 }
