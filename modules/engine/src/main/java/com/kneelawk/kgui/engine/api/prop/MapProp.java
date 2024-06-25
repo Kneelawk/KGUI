@@ -7,6 +7,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.UnknownNullability;
 
 /**
  * A simple property that depends on other properties.
@@ -81,7 +82,7 @@ public class MapProp<T> implements Prop<T> {
     }
 
     @Override
-    public T get() {
+    public @UnknownNullability T get() {
         if (!initialized) value = valueSupplier.get();
         assert value != null;
         return value;

@@ -4,6 +4,7 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.UnknownNullability;
 
 /**
  * Simple {@link Socket} implementation.
@@ -22,13 +23,13 @@ public class SimpleSocket<T> implements Socket<T> {
     }
 
     @Override
-    public void set(T value) {
+    public void set(@UnknownNullability T value) {
         // event is propagated through the property
         if (prop instanceof WritableProp<T> writableProp) writableProp.set(value);
     }
 
     @Override
-    public T get() {
+    public @UnknownNullability T get() {
         return prop.get();
     }
 
@@ -51,7 +52,10 @@ public class SimpleSocket<T> implements Socket<T> {
     @Override
     public void setProp(Prop<T> prop) {
         Objects.requireNonNull(prop, "prop cannot be null");
+        Prop<T> oldProp = this.prop;
         this.prop = prop;
+
+        oldProp.removeListener(internalListener);
         prop.addWeakListener(internalListener);
     }
 
@@ -88,12 +92,14 @@ public class SimpleSocket<T> implements Socket<T> {
 
     /**
      * Creates a new {@link SimpleSocket} with a writable property containing the given initial value.
+     * 
+     * Note: th
      *
      * @param initialValue the initial value of the property.
      * @param <T>          the type held within the new socket's property.
      * @return the created socket.
      */
-    public static <T> SimpleSocket<T> ofWritable(T initialValue) {
+    public static <T> SimpleSocket<T> ofWritable(@UnknownNullability T initialValue) {
         return new SimpleSocket<>(SimpleWritableProp.of(initialValue));
     }
 }

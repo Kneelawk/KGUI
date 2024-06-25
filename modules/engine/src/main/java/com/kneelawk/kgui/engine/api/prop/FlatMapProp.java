@@ -7,6 +7,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.UnknownNullability;
 
 /**
  * A simple property that depends on other properties' properties.
@@ -115,7 +116,7 @@ public class FlatMapProp<T> implements Prop<T> {
     }
 
     @Override
-    public T get() {
+    public @UnknownNullability T get() {
         if (prop == null) {
             prop = propSupplier.get();
             value = prop.get();

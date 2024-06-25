@@ -3,13 +3,15 @@ package com.kneelawk.kgui.engine.api.prop;
 import java.util.Objects;
 import java.util.function.Consumer;
 
+import org.jetbrains.annotations.UnknownNullability;
+
 /**
  * Simple property that holds a value that can be changed.
  *
  * @param <T> the type of value.
  */
 public class SimpleWritableProp<T> implements WritableProp<T> {
-    private T value;
+    private @UnknownNullability T value;
     private final ListenerSet<T> listeners = new ListenerSet<>();
 
     /**
@@ -17,17 +19,17 @@ public class SimpleWritableProp<T> implements WritableProp<T> {
      *
      * @param value this property's initial value.
      */
-    private SimpleWritableProp(T value) {
+    private SimpleWritableProp(@UnknownNullability T value) {
         this.value = value;
     }
 
     @Override
-    public T get() {
+    public @UnknownNullability T get() {
         return value;
     }
 
     @Override
-    public void set(T value) {
+    public void set(@UnknownNullability T value) {
         T oldValue = this.value;
         this.value = value;
 
@@ -63,7 +65,7 @@ public class SimpleWritableProp<T> implements WritableProp<T> {
      * @param <T>          type the property holds.
      * @return the created property.
      */
-    public static <T> SimpleWritableProp<T> of(T initialValue) {
+    public static <T> SimpleWritableProp<T> of(@UnknownNullability T initialValue) {
         return new SimpleWritableProp<>(initialValue);
     }
 }

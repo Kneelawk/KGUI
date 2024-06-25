@@ -14,8 +14,12 @@
   },
   "license": "MIT",
   "icon": "assets/kgui_example_properties/icon.png",
-  "environment": "*",
-  "entrypoints": { },
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.kneelawk.kgui.example.properties.ClientEntrypoint"
+    ]
+  },
   "mixins": [ ],
   "depends": {
     "fabricloader": ">=0.15.0",

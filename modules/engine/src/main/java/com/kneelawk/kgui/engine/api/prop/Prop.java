@@ -3,6 +3,8 @@ package com.kneelawk.kgui.engine.api.prop;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import org.jetbrains.annotations.UnknownNullability;
+
 /**
  * A read only property contains data that cannot be written to directly. This could be because it is derived from
  * another property.
@@ -12,7 +14,10 @@ import java.util.function.Supplier;
 public interface Prop<T> extends Supplier<T>, Listenable<T> {
     /**
      * {@return the current value contained in this property}
+     * <p>
+     * Note: nullability of this return is based on the nullability of the contained value.
      */
+    @UnknownNullability
     T get();
 
     /**
