@@ -28,7 +28,7 @@ public class MapProp<T> implements Prop<T> {
      * @param converter  the dependency converter.
      * @param <S>        the type the dependency provides.
      */
-    public <S> MapProp(Prop<S> dependency, Function<S, T> converter) {
+    private <S> MapProp(Prop<S> dependency, Function<S, T> converter) {
         Objects.requireNonNull(dependency, "dependency cannot be null");
         Objects.requireNonNull(converter, "converter cannot be null");
 
@@ -57,7 +57,7 @@ public class MapProp<T> implements Prop<T> {
      * @param valueSupplier the function that uses the dependencies to get the new value. Note: this should hold strong
      *                      references to all dependencies.
      */
-    public MapProp(List<Object> dependencies, Supplier<T> valueSupplier) {
+    private MapProp(List<?> dependencies, Supplier<T> valueSupplier) {
         Objects.requireNonNull(dependencies, "dependencies cannot be null");
         Objects.requireNonNull(valueSupplier, "valueSupplier cannot be null");
 
@@ -110,5 +110,30 @@ public class MapProp<T> implements Prop<T> {
     @Override
     public String toString() {
         return "MapProp{" + toStringSupplier.get() + "}";
+    }
+
+    /**
+     * Creates a new {@link MapProp} with a single dependency.
+     *
+     * @param dependency the single dependency.
+     * @param converter  the dependency converter.
+     * @param <S>        the type the dependency provides.
+     * @param <T>        the type the resulting property holds.
+     * @return the created property.
+     */
+    public static <S, T> MapProp<T> of(Prop<S> dependency, Function<S, T> converter) {
+        return new MapProp<>(dependency, converter);
+    }
+
+    /**
+     * Creates a new {@link MapProp} with multiple dependencies.
+     *
+     * @param dependencies  the list of dependencies.
+     * @param valueSupplier the function that uses the dependencies to get the new value.
+     * @param <T>           the type the resulting property holds.
+     * @return the created property.
+     */
+    public static <T> MapProp<T> of(List<?> dependencies, Supplier<T> valueSupplier) {
+        return new MapProp<>(dependencies, valueSupplier);
     }
 }

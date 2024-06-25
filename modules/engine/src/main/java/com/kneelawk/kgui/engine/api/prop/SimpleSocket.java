@@ -94,6 +94,6 @@ public class SimpleSocket<T> implements Socket<T> {
      * @return the created socket.
      */
     public static <T> SimpleSocket<T> ofWritable(T initialValue) {
-        return new SimpleSocket<>(new SimpleWritableProp<>(initialValue));
+        return new SimpleSocket<>(SimpleWritableProp.of(initialValue));
     }
 }

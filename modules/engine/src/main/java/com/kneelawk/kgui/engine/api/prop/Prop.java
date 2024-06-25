@@ -33,7 +33,7 @@ public interface Prop<T> extends Supplier<T>, Listenable<T> {
      * @return the mapped property.
      */
     default <U> Prop<U> map(Function<T, U> mapFunction) {
-        return new MapProp<>(this, mapFunction);
+        return MapProp.of(this, mapFunction);
     }
 
     /**
@@ -44,6 +44,6 @@ public interface Prop<T> extends Supplier<T>, Listenable<T> {
      * @return the flat-mapped property.
      */
     default <U> Prop<U> flatMap(Function<T, Prop<U>> flatMapFunction) {
-        return new FlatMapProp<>(this, flatMapFunction);
+        return FlatMapProp.of(this, flatMapFunction);
     }
 }

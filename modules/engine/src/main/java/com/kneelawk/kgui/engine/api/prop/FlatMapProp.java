@@ -28,7 +28,7 @@ public class FlatMapProp<T> implements Prop<T> {
      * @param converter  the dependency converter.
      * @param <S>        the type the dependency provides.
      */
-    public <S> FlatMapProp(Prop<S> dependency, Function<S, Prop<T>> converter) {
+    private <S> FlatMapProp(Prop<S> dependency, Function<S, Prop<T>> converter) {
         Objects.requireNonNull(dependency, "dependency cannot be null");
         Objects.requireNonNull(converter, "converter cannot be null");
 
@@ -73,7 +73,7 @@ public class FlatMapProp<T> implements Prop<T> {
      * @param dependencies the list of dependencies.
      * @param propSupplier the function that uses the dependencies to get the new value.
      */
-    public FlatMapProp(List<Object> dependencies, Supplier<Prop<T>> propSupplier) {
+    private FlatMapProp(List<?> dependencies, Supplier<Prop<T>> propSupplier) {
         Objects.requireNonNull(dependencies, "dependencies cannot be null");
         Objects.requireNonNull(propSupplier, "propSupplier cannot be null");
 
@@ -148,5 +148,30 @@ public class FlatMapProp<T> implements Prop<T> {
     @Override
     public String toString() {
         return "FlatMapProp{" + toStringSupplier + "}";
+    }
+
+    /**
+     * Creates a new {@link FlatMapProp} with a single dependency.
+     *
+     * @param dependency the single dependency.
+     * @param converter  the dependency converter.
+     * @param <S>        the type the dependency provides.
+     * @param <T>        the type the resulting property holds.
+     * @return the crated property.
+     */
+    public static <S, T> FlatMapProp<T> of(Prop<S> dependency, Function<S, Prop<T>> converter) {
+        return new FlatMapProp<>(dependency, converter);
+    }
+
+    /**
+     * Creates a new {@link FlatMapProp} with multiple dependencies.
+     *
+     * @param dependencies the list of dependencies.
+     * @param propSupplier the function that uses the dependencies to get the property for the new value.
+     * @param <T>          the type the resulting property holds.
+     * @return the created property.
+     */
+    public static <T> FlatMapProp<T> of(List<?> dependencies, Supplier<Prop<T>> propSupplier) {
+        return new FlatMapProp<>(dependencies, propSupplier);
     }
 }

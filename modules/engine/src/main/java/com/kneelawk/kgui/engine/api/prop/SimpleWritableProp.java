@@ -17,7 +17,7 @@ public class SimpleWritableProp<T> implements WritableProp<T> {
      *
      * @param value this property's initial value.
      */
-    public SimpleWritableProp(T value) {
+    private SimpleWritableProp(T value) {
         this.value = value;
     }
 
@@ -54,5 +54,16 @@ public class SimpleWritableProp<T> implements WritableProp<T> {
     @Override
     public String toString() {
         return "SimpleWritableProp{" + value + "}";
+    }
+
+    /**
+     * Creates a new {@link SimpleWritableProp} with an initial value.
+     *
+     * @param initialValue the initial value for the new property.
+     * @param <T>          type the property holds.
+     * @return the created property.
+     */
+    public static <T> SimpleWritableProp<T> of(T initialValue) {
+        return new SimpleWritableProp<>(initialValue);
     }
 }
