@@ -19,6 +19,7 @@ public class SimpleDependentProp<T> implements Prop<T> {
     private final Supplier<T> valueSupplier;
     private final Runnable updater;
     private final ListenerSet<T> listeners = new ListenerSet<>();
+    private final Supplier<String> toStringSupplier;
 
     /**
      * Creates a new {@link SimpleDependentProp} with a single dependency.
@@ -42,6 +43,8 @@ public class SimpleDependentProp<T> implements Prop<T> {
         updater = () -> listener.accept(dependency.get());
 
         dependency.addWeakListener(listener);
+
+        toStringSupplier = () -> "dependency=" + dependency + ", converter=" + converter;
     }
 
     /**
@@ -67,11 +70,14 @@ public class SimpleDependentProp<T> implements Prop<T> {
         for (Object dep : dependencies) {
             if (dep instanceof Listenable<?> prop) prop.addWeakListener(o -> updater.run());
         }
+
+        toStringSupplier = () -> "dependencies=" + dependencies + ", valueSupplier=" + valueSupplier;
     }
 
     @Override
     public T get() {
         if (!initialized) value = valueSupplier.get();
+        assert value != null;
         return value;
     }
 
@@ -93,5 +99,10 @@ public class SimpleDependentProp<T> implements Prop<T> {
     @Override
     public void removeListener(Object listener) {
         listeners.remove(listener);
+    }
+
+    @Override
+    public String toString() {
+        return "SimpleDependentProp{" + toStringSupplier.get() + "}";
     }
 }

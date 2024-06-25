@@ -50,4 +50,9 @@ public class SimpleWritableProp<T> implements WritableProp<T> {
     public void removeListener(Object listener) {
         listeners.remove(listener);
     }
+
+    @Override
+    public String toString() {
+        return "SimpleWritableProp{" + value + "}";
+    }
 }

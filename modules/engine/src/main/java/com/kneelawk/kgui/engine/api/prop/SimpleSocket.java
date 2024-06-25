@@ -70,6 +70,11 @@ public class SimpleSocket<T> implements Socket<T> {
         listeners.remove(listener);
     }
 
+    @Override
+    public String toString() {
+        return "SimpleSocket{" + prop + "}";
+    }
+
     /**
      * Creates a new {@link SimpleSocket} with the given property.
      *
