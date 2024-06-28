@@ -1,4 +1,4 @@
-package com.kneelawk.kgui.engine.impl.gen;
+package com.kneelawk.kgui.engine.api.util;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,6 +14,11 @@ import com.kneelawk.kgui.engine.impl.KGUIConstants;
 import com.kneelawk.kgui.engine.impl.KGUILog;
 import com.kneelawk.kgui.engine.impl.KGUIPaths;
 
+/**
+ * Abstract helper super-class for code-generator classes.
+ *
+ * @param <S> the spec type the code generator uses to define unique generated classes.
+ */
 public abstract class AbstractCodeGenerator<S> {
     private class Loader extends ClassLoader {
         public Loader(String name, ClassLoader parent) {
@@ -57,12 +62,25 @@ public abstract class AbstractCodeGenerator<S> {
 
     private final Loader loader;
 
+    /**
+     * Initializes the code generator.
+     *
+     * @param prefix the path prefix used for all generated classes.
+     * @param name   the name of the generating class loader.
+     */
     protected AbstractCodeGenerator(String prefix, String name) {
         this.prefix = prefix;
 
         loader = new Loader(name, getClass().getClassLoader());
     }
 
+    /**
+     * Generates and loads a class based on the implementation of {@link #generateClass(Object, Type)}.
+     *
+     * @param spec the spec used to generate the class.
+     * @return the loaded generated class.
+     * @throws ClassNotFoundException if there was an error creating the class.
+     */
     protected Class<?> getOrCreateClass(S spec) throws ClassNotFoundException {
         String className;
         lock.readLock().lock();
@@ -90,8 +108,22 @@ public abstract class AbstractCodeGenerator<S> {
         return loader.loadClass(className);
     }
 
+    /**
+     * Implementors should use this to generate the actual code of the class.
+     *
+     * @param spec         the spec used to define the class.
+     * @param beingDefined the type of the class being defined.
+     * @return the bytecode for the class being defined.
+     */
     protected abstract byte[] generateClass(S spec, Type beingDefined);
 
+    /**
+     * Implementors should use this to provide a custom string representation of a spec for use in debug exporting of
+     * generated classes.
+     *
+     * @param spec the spec used to define the class this debug info is associated with.
+     * @return the string representation of the spec.
+     */
     protected String getInfo(S spec) {
         return spec.toString();
     }
