@@ -3,14 +3,14 @@ loaderVersion = "[1,)"
 license = "MIT"
 
 [[mods]]
-modId = "kgui"
+modId = "${mod_id}"
 version = "${version}"
 displayName = "KGUI"
 authors = "Kneelawk"
 description = "Cuddly Minecraft GUI library."
 logoFile = "assets/kgui/icon.png"
 
-[[dependencies.kgui]]
+[[dependencies.${mod_id}]]
 modId = "neoforge"
 type = "REQUIRED"
 versionRange = "[20.4.148-beta,)"

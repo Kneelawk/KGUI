@@ -6,9 +6,7 @@ plugins {
 
 submodule {
     setLibsDirectory()
-    applyFabricLoaderDependency()
-    applyXplatConnection(":core-xplat", "mojmap")
-    disableRemap()
+    applyXplatConnection(":core-xplat")
     setupJavadoc()
 }
 

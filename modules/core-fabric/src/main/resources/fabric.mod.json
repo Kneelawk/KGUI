@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "kgui",
+  "id": "${mod_id}",
   "version": "${version}",
   "name": "KGUI",
   "description": "Cuddly Minecraft GUI library.",
@@ -13,8 +13,8 @@
     "sources": "https://github.com/Kneelawk/KGUI"
   },
   "license": "MIT",
-  "icon": "assets/kgui/icon.png",
-  "environment": "*",
+  "icon": "assets/${mod_id}/icon.png",
+  "environment": "client",
   "entrypoints": { },
   "mixins": [ ],
   "depends": {

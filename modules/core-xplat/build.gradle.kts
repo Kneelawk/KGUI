@@ -7,8 +7,6 @@ plugins {
 submodule {
     setLibsDirectory()
     setRefmaps("kgui-core")
-    applyFabricLoaderDependency()
-    forceRemap()
     setupJavadoc()
 }
 

@@ -5,9 +5,7 @@ plugins {
 }
 
 submodule {
-    applyFabricLoaderDependency()
-    applyFabricApiDependency()
-    applyXplatConnection(":properties-xplat", "fabric")
+    applyXplatConnection(":properties-xplat")
     generateRuns()
 }
 

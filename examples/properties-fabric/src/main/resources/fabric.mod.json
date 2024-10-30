@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "kgui_example_properties",
+  "id": "${mod_id}",
   "version": "${version}",
   "name": "KGUI Properties Example",
   "description": "Cuddly Minecraft GUI library Properties Example.",
@@ -13,7 +13,7 @@
     "sources": "https://github.com/Kneelawk/KGUI"
   },
   "license": "MIT",
-  "icon": "assets/kgui_example_properties/icon.png",
+  "icon": "assets/${mod_id}/icon.png",
   "environment": "client",
   "entrypoints": {
     "client": [

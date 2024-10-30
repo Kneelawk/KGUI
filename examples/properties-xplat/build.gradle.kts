@@ -5,7 +5,5 @@ plugins {
 
 submodule {
     setRefmaps("kgui-example-properties")
-    applyFabricLoaderDependency()
-    forceRemap()
     xplatProjectDependency(":core")
 }
