@@ -30,6 +30,8 @@ pluginManagement {
         id("com.kneelawk.kpublish") version kpublish_version
         val submodule_version: String by settings
         id("com.kneelawk.submodule") version submodule_version
+        val shadow_version: String by settings
+        id("com.gradleup.shadow") version shadow_version
     }
 }
 
