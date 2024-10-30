@@ -93,12 +93,12 @@ public abstract class KAbstractWidget extends AbstractWidget
 
     @Override
     public int getY() {
-        return super.getY();
+        return this.y.get();
     }
 
     @Override
     public void setY(int y) {
-        super.setY(y);
+        this.y.set(y);
     }
 
     @Override
