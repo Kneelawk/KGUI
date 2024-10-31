@@ -17,8 +17,6 @@ public class MinecraftFontProp implements Prop<Font> {
         return INSTANCE;
     }
 
-    private final ListenerSet<Font> listeners = new ListenerSet<>();
-
     private MinecraftFontProp() {}
 
     @Override
