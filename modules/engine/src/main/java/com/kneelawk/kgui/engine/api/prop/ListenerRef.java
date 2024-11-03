@@ -1,9 +1,9 @@
 package com.kneelawk.kgui.engine.api.prop;
 
 import java.lang.ref.WeakReference;
-import java.util.List;
 import java.util.function.Consumer;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -26,7 +26,7 @@ public sealed interface ListenerRef<T> {
      */
     record Strong<T>(Consumer<T> consumer) implements ListenerRef<T> {
         @Override
-        public @Nullable Consumer<T> get() {
+        public @NotNull Consumer<T> get() {
             return consumer;
         }
     }
